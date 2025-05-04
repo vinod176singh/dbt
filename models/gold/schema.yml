@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: silver
+    database: cellular_sales
+    schema: silver
+    tables:
+      - name: refined_customers
+
+
+models: 
+  - name: customer_summary
+    descriptions: create summary from silver layer.
+    columns: 
+      - name: region
+        tests:
+          - not_null
+          - unique
+      - name: customer_count
+        tests:
+          - not_null
+          - unique

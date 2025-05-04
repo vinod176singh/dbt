@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: bronze
-    database: cellular_sales      # Replace with your actual DB name if different
+    database: cellular_sales      
     schema: bronze
     tables:
       - name: raw_customers

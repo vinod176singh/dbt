@@ -16,7 +16,7 @@ test-paths: ["tests"]
 log-path: "logs"
 target-path: "target"
 clean-targets:
-    - "dbt_modules"
+    - "dbt_packages"
     - "target"
 
 # Set query behavior: prepend comments and quoting
@@ -38,7 +38,11 @@ models:
         
         silver:
             +enabled: true
-            +schema: silver            
+            +schema: silver  
+
+        gold:
+            +enabled: true
+            +schema: gold          
         
 
 
