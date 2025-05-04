@@ -1,12 +1,20 @@
-.DS_Store
-.vscode/
-.idea/
-env/
-venv/
+# Ignore virtual env
+dbt-env/
 
+# dbt build artifacts
+dbt_packages/
 dbt_modules/
 target/
 logs/
 
-keyfile.json
-profiles.yml
+# Python cache
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+
+# Environment files
+.env
+*.log
+

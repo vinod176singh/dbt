@@ -1,22 +1,21 @@
-name: '{company_name}'
+name: 'anblicks'
 version: 0.1.0
 
 require-dbt-version: ">=0.18.0"
 config-version: 2
 
 # Configure database connection profile for dbt to use
-profile: '{profile}'
+profile: 'snowflake_profile'
 
 # Set paths for dbt objects
 analysis-paths: ["analysis"]
-data-paths: ["data"]
+seed-paths: ["data"]
 macro-paths: ["macros"]
-source-paths: ["models"]
+model-paths: ["models"]
 snapshot-paths: ["snapshots"]
 test-paths: ["tests"]
 
 log-path: "logs"
-modules-path: "dbt_modules"
 target-path: "target"
 clean-targets:
     - "dbt_modules"
@@ -32,7 +31,7 @@ quoting:
 
 # DBT MODELS
 models:
-    {company_name}:
+    anblicks:
         +enabled: true
         +materialized: view
         +persist_docs:
@@ -54,7 +53,7 @@ models:
 
 # Project variables
 vars:
-    {company_name}:
+    anblicks:
         dbt_project_created_date: '2020-09-21'  # <-- Set as date when dbt project first created
         analysis_start_date: '2016-01-01'  # <-- Earliest time when organization started tracking data
         analysis_end_date: dbt_utils.current_timestamp()
@@ -62,9 +61,9 @@ vars:
 
 
 # Data seeds
-seeds:
+seeds:  
     +quote_columns: false
     +schema: intermediate
     
-    {company_name}:
+    anblicks:
       +enabled: true
