@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: cellular_sales      # Replace with your actual DB name if different
+    schema: bronze
+    tables:
+      - name: raw_customers
+
+models:
+  - name: refined_customers
+    description: Refines raw_customers data from bronze to silver layer.
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+      - name: email
+        tests:
+          - not_null
+      - name: signup_date
+      - name: full_name
+      - name: region

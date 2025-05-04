@@ -1,10 +1,8 @@
 name: 'anblicks'
 version: 0.1.0
-
-require-dbt-version: ">=0.18.0"
+require-dbt-version: ">=1.9.0"
 config-version: 2
 
-# Configure database connection profile for dbt to use
 profile: 'snowflake_profile'
 
 # Set paths for dbt objects
@@ -38,17 +36,11 @@ models:
             relation: true
             columns: true
         
-        staging:
+        silver:
             +enabled: true
-            +schema: intermediate
+            +schema: silver            
         
-        marts:
-            +enabled: true
-            +materialized: table
-            core:
-                +schema: core
-            marketing:
-                +schema: marketing
+
 
 
 # Project variables
