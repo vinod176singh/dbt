@@ -9,6 +9,6 @@ snowflake_profile:
       role: sysadmin
       database: cellular_sales
       warehouse: demo_wh
-      schema: cscore_fd
+      schema: bronze
       threads: 4
       client_session_keep_alive: false
