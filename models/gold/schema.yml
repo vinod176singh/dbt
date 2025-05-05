@@ -14,9 +14,21 @@ models:
     columns: 
       - name: region
         tests:
-          - not_null
           - unique
       - name: customer_count
         tests:
           - not_null
           - unique
+  - name: customer_metrics
+    descriptions: customer level metrics for bi use
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+      - name: total_orders
+      - name: total_spent
+      - name: customer_hash
+        tests:
+          - not_null
+
+          

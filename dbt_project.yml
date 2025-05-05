@@ -35,7 +35,10 @@ models:
         +persist_docs:
             relation: true
             columns: true
-        
+        bronze:
+            +enabled: true
+            +schema: bronze
+
         silver:
             +enabled: true
             +schema: silver  
@@ -58,8 +61,11 @@ vars:
 
 # Data seeds
 seeds:  
-    +quote_columns: false
-    +schema: intermediate
-    
-    anblicks:
-      +enabled: true
+  +quote_columns: false
+  +schema: intermediate
+
+  anblicks:
+    +enabled: true
+    region_mapping:
+      schema: bronze
+      quote_columns: false

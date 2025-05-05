@@ -1,0 +1,15 @@
+version: 2
+
+exposures:
+  - name: customer_dashboard
+    label: Customer Overview Dashboard
+    type: dashboard
+    maturity: high
+    url: https://your-bi-tool.com/dashboard/123
+    description: >
+      Power BI dashboard showing total spend and engagement metrics per customer.
+    depends_on:
+      - ref('customer_metrics')
+    owner:
+      name: Vinod Singh
+      email: vinod@example.com
