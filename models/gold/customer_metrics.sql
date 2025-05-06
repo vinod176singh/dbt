@@ -7,7 +7,7 @@ WITH customer_orders AS (
     SELECT
         c.customer_id,
         c.email,
-        c.region,
+        c.region_code,
         COUNT(o.order_id) AS total_orders,
         SUM(o.order_amount) AS total_spent,
         MAX(o.updated_at) AS last_order_date,
@@ -15,7 +15,7 @@ WITH customer_orders AS (
     FROM {{ ref('refined_customers') }} c
     LEFT JOIN {{ ref('incr_orders') }} o
       ON c.customer_id = o.customer_id
-    GROUP BY c.customer_id, c.email, c.region
+    GROUP BY c.customer_id, c.email, c.region_code
 )
 
 SELECT * FROM customer_orders
