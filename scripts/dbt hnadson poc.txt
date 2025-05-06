@@ -1,0 +1,56 @@
+Would you like to now focus on CI/CD deployment with dbt, automate tests in a scheduler (like Airflow), or build advanced macros?
+slack/email notification
+
+✅ Suggested Next Steps:
+1. 📄 Seeds
+Load static reference data from CSV files
+
+Example: country codes, region mappings, thresholds
+
+Hands-on: Create a data/ folder, add CSV, define in dbt_project.yml, and run dbt seed
+
+2. 📊 Analysis
+Create shareable SQL blocks for data analysts
+
+Not materialized in the warehouse — just reusable queries
+
+Hands-on: Create a .sql file in analysis/, use ref() inside, run via dbt compile
+
+3. 📸 Snapshots
+Capture slowly changing dimensions (SCD Type 2)
+
+Useful for tracking historical changes (e.g., customer tier)
+
+Hands-on: Create a snapshots/ folder, define unique_key, strategy, run with dbt snapshot
+
+Data Quality Checks Framework with DBT Tests
+Goal: Build reusable test coverage across bronze → silver → gold layers
+Key Components:
+
+schema.yml tests (e.g., not_null, unique, accepted_values)
+
+Custom generic test: e.g., valid_email_format.sql
+
+Test results reporting: dbt test + Slack/email notifications (optional)
+
+✅ POC 2: Incremental Models with Late Arriving Data
+Goal: Handle data that arrives late or needs deduplication
+Key Components:
+
+materialized='incremental' model
+
+is_incremental() logic with timestamps
+
+DBT macros for managing watermarks
+
+Logging of inserted vs updated rows
+
+✅ POC 3: Golden Layer Metrics Model + dbt_utils + Exposures
+Goal: Build an analytics-ready table + document BI dependencies
+Key Components:
+
+Use ref() across layers to create a gold.customer_metrics table
+
+Integrate dbt_utils macros (e.g., surrogate_key, date_spine)
+
+Define exposures: (BI dashboards or Power BI/Tableau dependency)
