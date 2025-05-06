@@ -8,8 +8,8 @@ SELECT
     c.email,
     c.signup_date,
     c.first_name || ' ' || c.last_name AS full_name,
-    rm.region_name AS region
+    rm.region_code
 FROM {{ ref('raw_customers') }} c
 LEFT JOIN {{ ref('region_mapping') }} rm
-    ON c.raw_region = rm.region_code
+    ON c.raw_region = rm.region_name
 
