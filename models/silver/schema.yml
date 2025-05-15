@@ -6,7 +6,7 @@ sources:
     schema: bronze
     tables:
       - name: raw_customers
-      - name: raw_orders
+      
 
 
 models:
@@ -33,6 +33,7 @@ models:
 
   - name: incr_orders
     desccriptions: incremental load only from bronze to silver layer
+
     columns:
       - name: order_id
         tests:

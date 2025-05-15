@@ -8,3 +8,19 @@ models:
         tests:
           - not_null
       - name: email
+
+version: 2
+
+sources:
+  - name: bronze
+    database: cellular_sales
+    schema: bronze
+    tables:
+      - name: orders
+        description: "Raw orders table created manually"
+
+      - name: raw_orders
+        loaded_at_field: updated_at  # must be a timestamp column in your source table
+        freshness:
+          warn_after: { count: 1, period: hour }
+          error_after: { count: 2, period: hour }

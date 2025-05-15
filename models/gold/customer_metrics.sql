@@ -9,7 +9,7 @@ WITH customer_orders AS (
         c.email,
         c.region_code,
         COUNT(o.order_id) AS total_orders,
-        SUM(o.order_amount) AS total_spent,
+        SUM(o.amount) AS total_spent,
         MAX(o.updated_at) AS last_order_date,
         {{ dbt_utils.generate_surrogate_key(['c.customer_id', 'c.email']) }} AS customer_hash
     FROM {{ ref('refined_customers') }} c
@@ -19,3 +19,6 @@ WITH customer_orders AS (
 )
 
 SELECT * FROM customer_orders
+
+
+

@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: dimensions
+    database: cellular_sales
+    schema: dimensions
+    tables:
+      - name: dim_date
+        description: "dim_date table created manually"
+
