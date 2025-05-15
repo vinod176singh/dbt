@@ -18,7 +18,6 @@ target-path: "target"
 clean-targets:
     - "dbt_packages"
     - "target"
-
 # Set query behavior: prepend comments and quoting
 query-comment: "{{ query_comment(node) }}"
 quoting:
@@ -69,3 +68,8 @@ seeds:
     region_mapping:
       schema: bronze
       quote_columns: false
+
+seeds:
+  your_project_name:
+    dimension_metadata:
+      header: true

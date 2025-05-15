@@ -1,0 +1,7 @@
+sources:
+  - name: bronze
+    database: cellular_sales
+    schema: bronze
+    tables:
+      - name: products
+      - name: customers

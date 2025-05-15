@@ -1,0 +1,3 @@
+model_name,source_table,columns
+dim_customer,bronze.customers,"customer_id,first_name,last_name,email"
+dim_product,bronze.products,"product_id,product_name,category"
