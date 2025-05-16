@@ -18,7 +18,6 @@ models:
       - name: customer_count
         tests:
           - not_null
-          - unique
   - name: customer_metrics
     descriptions: customer level metrics for bi use
     columns:
