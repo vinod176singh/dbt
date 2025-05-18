@@ -11,9 +11,9 @@ SELECT
     amount,
     status,
     created_at,
-    updated_at
+    LAST_UPDATED
 FROM {{ source('bronze', 'raw_orders') }}
 
 {% if is_incremental() %}
-WHERE updated_at > COALESCE((SELECT MAX(updated_at) FROM {{ this }}), '1900-01-01')
+WHERE created_at > COALESCE((SELECT MAX(created_at) FROM {{ this }}), '1900-01-01')
 {% endif %}
