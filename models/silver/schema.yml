@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: refined_customers
+    description: Refines raw_customers data from bronze to silver layer.
+    columns:
+      - name: customer_id
+        description: "Unique customer identifier"
+        tests:
+          - not_null
+          - unique
+      - name: email
+        description: "Customer email address"
+        tests:
+          - not_null
+          - valid_email_format
+      - name: signup_date
+      - name: full_name
+      - name: region
+        description: "Geographic region"
+        tests:
+          - accepted_values:
+              values: ['East','West','North','South','Central']
+
+  - name: incr_orders
+    desccriptions: incremental load only from bronze to silver layer
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null

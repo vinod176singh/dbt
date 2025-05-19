@@ -1,0 +1,161 @@
+✅ POC 1: 📄 Seeds
+Load static reference data from CSV files
+
+Example: country codes, region mappings, thresholds
+
+Hands-on: Create a data/ folder, add CSV, define in dbt_project.yml, and run dbt seed
+
+✅ POC 2: 📊 Analysis
+Create shareable SQL blocks for data analysts
+
+Not materialized in the warehouse — just reusable queries
+
+Hands-on: Create a .sql file in analysis/, use ref() inside, run via dbt compile
+
+✅ POC 3: 📸 Snapshots
+Capture slowly changing dimensions (SCD Type 2)
+
+Useful for tracking historical changes (e.g., customer tier)
+
+Hands-on: Create a snapshots/ folder, define unique_key, strategy, run with dbt snapshot
+
+
+✅ POC 4:Data Quality Checks Framework with DBT Tests
+Goal: Build reusable test coverage across bronze → silver → gold layers
+Key Components:
+
+schema.yml tests (e.g., not_null, unique, accepted_values)
+
+Custom generic test: e.g., valid_email_format.sql
+
+Test results reporting: dbt test + Slack/email notifications (optional)
+
+✅ POC 5: Incremental Models with Late Arriving Data
+Goal: Handle data that arrives late or needs deduplication
+Key Components:
+
+materialized='incremental' model
+
+is_incremental() logic with timestamps
+
+DBT macros for managing watermarks
+
+Logging of inserted vs updated rows
+
+✅ POC 6: Golden Layer Metrics Model + dbt_utils + Exposures
+Goal: Build an analytics-ready table + document BI dependencies
+Key Components:
+
+Use ref() across layers to create a gold.customer_metrics table
+
+Integrate dbt_utils macros (e.g., surrogate_key, date_spine)
+
+Define exposures: (BI dashboards or Power BI/Tableau dependency)
+
+
+✅ POC 7: Jinja Macros – Build Reusable Logic
+Goal: Create custom macros to simplify repetitive logic (like dynamic partition filters, common WHERE conditions, or surrogate keys).
+
+POC: Build a macro to dynamically filter a table by run_date and apply it across multiple models.
+
+Bonus: Try using loop and if inside macros with set() variables.
+
+✅ POC 8: Source Freshness Checks
+Goal: Automate data freshness validations.
+
+POC: Define freshness checks on raw sources and schedule dbt source freshness run.
+
+Use this in combination with your data quality logs to alert if upstream sources are stale.
+
+✅ POC 9: Logging & Audit Models
+Goal: Track metadata like model execution time, row counts, test results.
+
+POC: Create a model that logs metadata from dbt run-results.json and dbt artifacts.
+
+Push this into a monitoring dashboard (Power BI, Tableau, or even a downstream Snowflake table).
+
+✅ POC 10: Dynamic Model Generation (dbt + Jinja)
+Goal: Create models based on config files or metadata.
+
+POC: Use YAML/JSON files or seed tables to dynamically generate models (e.g., build 5 dimension models with same logic using loop over seed).
+
+✅ POC 11: Use dbt Artifacts Programmatically
+Goal: Extract metadata from manifest.json and run_results.json.
+
+POC: Build an analysis report on success/failure trends of models/tests across runs.
+
+Use Python or dbt built-in commands to extract these.
+
+✅ POC 12: DBT Packages – Modularize Logic
+Goal: Create your own DBT package or import a community package like dbt_expectations.
+
+POC: Build a reusable package for transformations used across multiple projects (like common dimension models).
+
+Tip: Try using dbt-utils with generate_surrogate_key, star, and pivot macros.
+
+✅ POC 13: Multi-environment Strategy
+Goal: Set up and test separate dev/qa/prod environments using target and profiles.yml.
+
+POC: Test running the same models in different schemas/databases based on target.
+
+Helps before CI/CD setup.
+
+✅ POC 14: CI/CD Integration for DBT Using GitHub Actions / Azure DevOps / GitLab CI
+Goal: Automate dbt workflows like dbt run, dbt test, and dbt docs generate via a CI/CD pipeline on every code push or pull request.
+Key Components:
+
+Create a .yml pipeline in .github/workflows/ or relevant CI platform.
+
+Install dbt and dependencies.
+
+Configure workflow to execute:
+
+dbt deps
+
+dbt seed (if needed)
+
+dbt run
+
+dbt test
+
+dbt docs generate
+
+Implement branch protections and environment-specific deployment (optional).
+
+✅ POC 15: Orchestrating dbt Runs via Apache Airflow
+Goal: Use Airflow to automate and schedule dbt run, dbt test, and dbt source freshness operations.
+Key Components:
+
+Install dbt in your Airflow environment.
+
+Define a DAG using BashOperator or DBT Cloud Operator.
+
+Example flow:
+
+Task 1: dbt run
+
+Task 2: dbt test
+
+Task 3: dbt source freshness
+
+Schedule the DAG daily or hourly.
+
+Pass dynamic variables to dbt using --vars.
+
+✅ POC 16: Slack and Email Notifications for DBT Test Failures
+Goal: Send proactive alerts via Slack or Email based on dbt test results or freshness errors.
+Key Components:
+
+Parse run_results.json or source freshness output.
+
+Use slack_sdk or smtplib to send messages.
+
+Set conditional alerts based on:
+
+Test status = fail
+
+Source freshness = ERROR STALE
+
+Long execution time or model retries
+
+Integrate into CI/CD pipeline or Airflow task for real-time notifications.

@@ -1,0 +1,14 @@
+- table_name: dim_customer
+  source_table: raw_customers
+  columns: "customer_id, customer_name, signup_date"
+  filter: "is_active = true"
+
+- table_name: dim_product
+  source_table: raw_products
+  columns: "product_id, product_name, price"
+  filter: "is_available = true"
+
+- table_name: dim_region
+  source_table: raw_regions
+  columns: "region_id, region_name"
+  filter: "region_name IS NOT NULL"

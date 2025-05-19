@@ -1,10 +1,8 @@
 name: 'anblicks'
 version: 0.1.0
-
-require-dbt-version: ">=0.18.0"
+require-dbt-version: ">=1.9.0"
 config-version: 2
 
-# Configure database connection profile for dbt to use
 profile: 'snowflake_profile'
 
 # Set paths for dbt objects
@@ -18,7 +16,7 @@ test-paths: ["tests"]
 log-path: "logs"
 target-path: "target"
 clean-targets:
-    - "dbt_modules"
+    - "dbt_packages"
     - "target"
 
 # Set query behavior: prepend comments and quoting
@@ -37,18 +35,19 @@ models:
         +persist_docs:
             relation: true
             columns: true
-        
-        staging:
+        bronze:
             +enabled: true
-            +schema: intermediate
-        
-        marts:
+            +schema: bronze
+
+        silver:
             +enabled: true
-            +materialized: table
-            core:
-                +schema: core
-            marketing:
-                +schema: marketing
+            +schema: silver  
+
+        gold:
+            +enabled: true
+            +schema: gold          
+        
+
 
 
 # Project variables
@@ -62,8 +61,11 @@ vars:
 
 # Data seeds
 seeds:  
-    +quote_columns: false
-    +schema: intermediate
-    
-    anblicks:
-      +enabled: true
+  +quote_columns: false
+  +schema: intermediate
+
+  anblicks:
+    +enabled: true
+    region_mapping:
+      schema: bronze
+      quote_columns: false
