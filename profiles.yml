@@ -12,3 +12,27 @@ snowflake_profile:
       schema: bronze
       threads: 4
       client_session_keep_alive: false
+
+    qa:
+      type: snowflake
+      account: ANBLICKSORG-ANBLICKSPARTNER
+      user: vinods
+      password: Dallas@#Anblicks2025
+      role: sysadmin
+      database: cellular_sales_qa
+      warehouse: demo_wh
+      schema: bronze
+      threads: 4
+      client_session_keep_alive: false
+
+    prod:
+      type: snowflake
+      account: ANBLICKSORG-ANBLICKSPARTNER
+      user: vinods
+      password: Dallas@#Anblicks2025
+      role: sysadmin
+      database: cellular_sales_prod
+      warehouse: demo_wh
+      schema: bronze
+      threads: 4
+      client_session_keep_alive: false
