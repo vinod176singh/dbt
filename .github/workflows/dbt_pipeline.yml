@@ -1,0 +1,53 @@
+name: DBT CI/CD Multi-Environment
+
+on:
+  push:
+    branches: [dev, qa, main]
+  pull_request:
+    branches: [dev, qa, main]
+
+jobs:
+  dbt:
+    name: Run dbt on ${{ github.ref_name }} environment
+    runs-on: ubuntu-latest
+
+    env:
+      DBT_PROFILES_DIR: ./
+      ENV_NAME: ${{ github.ref_name == 'main' && 'prod' || github.ref_name }}
+
+      # 🔐 Sensitive
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+
+      # 🌐 Non-sensitive shared variables
+      SNOWFLAKE_ACCOUNT: ${{ vars.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_USER: ${{ vars.SNOWFLAKE_USER }}
+      SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_WAREHOUSE: ${{ vars.SNOWFLAKE_WAREHOUSE }}
+      SNOWFLAKE_SCHEMA: ${{ vars.SNOWFLAKE_SCHEMA }}
+
+      # 🎯 Dynamic per-environment database (overwritten below)
+      SNOWFLAKE_DATABASE: ${{ github.ref_name == 'main' && vars.SNOWFLAKE_DATABASE_PROD || github.ref_name == 'qa' && vars.SNOWFLAKE_DATABASE_QA || vars.SNOWFLAKE_DATABASE_DEV }}
+
+    steps:
+      - name: 📦 Checkout Code
+        uses: actions/checkout@v3
+
+      - name: 🐍 Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: 📥 Install dbt
+        run: pip install dbt-snowflake
+
+      - name: 📦 Install dbt Packages
+        run: dbt deps
+
+      - name: 🚀 Run dbt Models
+        run: dbt run --target $ENV_NAME
+
+      - name: ✅ Run dbt Tests
+        run: dbt test --target $ENV_NAME
+
+      - name: 🧭 Generate dbt Docs
+        run: dbt docs generate --target $ENV_NAME

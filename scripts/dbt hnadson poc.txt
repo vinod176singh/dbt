@@ -159,3 +159,5 @@ Source freshness = ERROR STALE
 Long execution time or model retries
 
 Integrate into CI/CD pipeline or Airflow task for real-time notifications.
+
+✅ POC 17:how to store secure value in dbt projects

@@ -1,38 +1,22 @@
 snowflake_profile:
-  target: dev
+  target: "{{ env_var('ENV_NAME') }}"
   outputs:
-    dev:
+    dev: &dev
       type: snowflake
-      account: ANBLICKSORG-ANBLICKSPARTNER
-      user: vinods
-      password: Dallas@#Anblicks2025
-      role: sysadmin
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
       database: cellular_sales
-      warehouse: demo_wh
-      schema: bronze
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA') }}"
       threads: 4
       client_session_keep_alive: false
 
     qa:
-      type: snowflake
-      account: ANBLICKSORG-ANBLICKSPARTNER
-      user: vinods
-      password: Dallas@#Anblicks2025
-      role: sysadmin
+      <<: *dev
       database: cellular_sales_qa
-      warehouse: demo_wh
-      schema: bronze
-      threads: 4
-      client_session_keep_alive: false
 
     prod:
-      type: snowflake
-      account: ANBLICKSORG-ANBLICKSPARTNER
-      user: vinods
-      password: Dallas@#Anblicks2025
-      role: sysadmin
+      <<: *dev
       database: cellular_sales_prod
-      warehouse: demo_wh
-      schema: bronze
-      threads: 4
-      client_session_keep_alive: false
