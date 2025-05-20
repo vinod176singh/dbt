@@ -43,6 +43,11 @@ jobs:
       - name: 📦 Install dbt Packages
         run: dbt deps
 
+      - name: 🔍 Print critical env vars
+        run: |
+          echo "ENV_NAME = $ENV_NAME"
+          echo "SNOWFLAKE_USER = $SNOWFLAKE_USER"       
+
       - name: 🚀 Run dbt Models
         run: dbt run --target $ENV_NAME
 
