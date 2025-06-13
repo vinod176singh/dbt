@@ -3,3 +3,5 @@ packages:
     version: 1.1.1
   - git: "https://github.com/vinod176singh/dq_inspector.git"
     revision: main
+  - git: "https://github.com/jqhill/dbt-profiler.git"
+    revision: "main"
